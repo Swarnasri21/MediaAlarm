@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediAlarm Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  padding: 2rem;
+}
+
+/* Dashboard container */
+.dashboard {
+  max-width: 600px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.dashboard h2 {
+  color: #0077b6;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.dashboard h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #023e8a;
+}
+
+/* Logout button */
+.logout-button {
+  display: block;
+  text-align: right;
+  margin-bottom: 1rem;
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+input[type="text"],
+input[type="time"],
+input[type="file"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.7rem;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #023e8a;
+}
+
+/* Alarm button */
+.alarm-button {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Output styling */
+#billOutput {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+/* Medicine list */
+#medicineList {
+  margin-top: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}</style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <h2>Welcome, {{ user }}</h2>
+        <a href="/logout" class="logout-button">Logout</a>
+
+        <section class="reminder-section">
+            <h3>Add Medicine Reminder</h3>
+            <form id="medicineForm">
+              <label for="name">
+                <input type="text" id="name" placeholder="Medicine name" required>
+                <input type="text" id="dose" placeholder="Dose (e.g. 500mg)">
+                <input type="time" id="time" required>
+                <button type="submit">Add Reminder</button>
+                </label>
+            </form>
+            <ul id="medicineList"></ul>
+        </section>
+
+        <section class="upload-section">
+            <h3>Upload Bill for OCR</h3>
+            <form id="billForm" enctype="multipart/form-data">
+                <input type="file" name="bill" accept="image/*" required>
+                <button type="submit">Upload & Scan</button>
+            </form>
+            <pre id="billOutput"></pre>
+        </section>
+
+        <button id="alarmButton" class="alarm-button">Start Alarm</button>
+    </div>
+
+</body>
+</html>

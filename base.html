@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediAlarm</title>
+    <script src="alarm.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>/* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Navigation bar container */
+.navbar {
+  background-color: #0077b6;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo styling */
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Navigation links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #90e0ef;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 0.5rem 0;
+  }
+  .center-container {
+       text-align: center;
+    display: flex;
+    justify-content: center; /* horizontal */ /* vertical */
+    height: 100vh;           /* full viewport height */
+  }
+  .hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+}</style>
+</head>
+<body>
+
+    <!-- 🌐 Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">MediAlarm</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard1.html">Home</a></li>
+            <li><a href="/upload_bill">Upload Bill</a></li>
+            <li><a href="/get_bills">My Bills</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- 🏠 Main Content -->
+    <div class="center-container">
+        <h1>Welcome to MediAlarm</h1>
+        <p>Your personal medical bill manager and reminder system.</p>
+    </div>
+<div id="dashboardContainer" class="dashboard hidden">
+    <h2>Welcome, {{ user }}</h2>
+    <a href="/logout" class="logout-button">Logout</a>
+
+    <section class="reminder-section">
+        <h3>Add Medicine Reminder</h3>
+        <form id="medicineForm">
+            <label for="name">
+                <input type="text" id="name" placeholder="Medicine name" required>
+                <input type="text" id="dose" placeholder="Dose (e.g. 500mg)">
+                <input type="time" id="time" required>
+                <button type="submit">Add Reminder</button>
+            </label>
+        </form>
+        <ul id="medicineList"></ul>
+    </section>
+
+    <section class="upload-section">
+        <h3>Upload Bill for OCR</h3>
+        <form id="billForm" enctype="multipart/form-data">
+            <input type="file" name="bill" accept="image/*" required>
+            <button type="submit">Upload & Scan</button>
+        </form>
+        <pre id="billOutput"></pre>
+    </section>
+
+    <button id="alarmButton" class="alarm-button">Start Alarm</button>
+</div>
+<script>
+  window.addEventListener('scroll', function () {
+    const dashboard = document.getElementById('dashboardContainer');
+    const triggerPoint = window.innerHeight * 0.6; // 60% down the viewport
+
+    if (window.scrollY > triggerPoint) {
+      dashboard.classList.add('visible');
+      dashboard.classList.remove('hidden');
+    }
+  });
+</script>
+</body>
+</html>
